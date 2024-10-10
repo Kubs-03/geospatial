@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Annie Use Your Telescope' rel='stylesheet'>
+
+    <meta name="description" content="Test your knowledge with our fun and challenging flag guessing game! Identify flags from countries all around the world and improve your geography skills.
+     Perfect for trivia lovers and geography enthusiasts.">
+    <meta name="keywords" content="General knowledge,Geography enthusiasts, Country, Flags">
+
+    <title>Flag_Whiz</title>
+    <style>
+        * {
+            /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+            font-family: 'Annie Use Your Telescope';
+        }
+
+        .quiz {
+            width: 50%;
+            /* change this accordingly*/
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 5px;
+            margin: 0 auto;
+            margin-top: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .quiz h1 {
+            margin: 0;
+        }
+
+        #quiz_image {
+            height: 500px;
+            width: 100%;
+            margin: 0 auto;
+            background-image: url(world-map.jpg);
+            background-position: center no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quiz .next-btn {
+            margin-top: 20px;
+        }
+
+        .quiz h2 {
+            font-size: 25px;
+            color: #000000;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .btn {
+            background: #ffffff;
+            color: #222;
+            font-size: 26px;
+            font-weight: 600;
+            /* text-transform: uppercase; */
+            letter-spacing: 0.5px;
+            width: 50%;
+            border: 1px solid #222;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            /* border-style: hidden; */
+        }
+
+        .btn:hover {
+            background: #222;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #next-btn,
+        #start-btn {
+            background: #000000;
+            color: #fff;
+            font-weight: 600;
+            /* letter-spacing:1px; */
+            font-size: 24px;
+            width: 150px;
+            border: 0;
+            padding: 10px;
+            margin: 0 auto;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+            border: 1px black solid;
+        }
+
+        #next-btn:hover,
+        #start-btn:hover {
+            color: rgb(255, 255, 255);
+            background-color: #333;
+            transition: 0.2s all;
+        }
+
+        .correct {
+            background: #9aeabc;
+        }
+
+        .incorrect {
+            background: #ff9393;
+        }
+
+        #timer-toggle {
+            display: flex;
+            gap: 10px;
+            /* justify-content: space-evenly; */
+            /* background-color: #9aeabc; */
+            text-align: center;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .timer-on {
+            position: relative;
+            display: inline-block;
+            width: 49px;
+            height: 21px;
+        }
+
+        /* Hide default HTML checkbox */
+        .timer-on input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 2px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #000000;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #4a4949;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        #question-image {
+            width: 60%;
+            height: auto;
+            display: none;
+            margin: 0 auto;
+            border-radius: 10px;
+            border: black 2px solid;
+            /* padding:5px; */
+        }
+
+        #timer {
+            padding: 5px;
+            margin: 5px;
+            /* font-size: 18px; */
+        }
+
+        #time {
+            font-weight: bold;
+            font-size: 24px;
+            padding: 2px;
+        }
+
+        #totalques {
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 10px;
+        }
+
+        #subject {
+            background-color: rgba(88, 85, 85, 0.4);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            padding: 20px;
+            font-weight: bold;
+            font-size: 30px;
+            width: 50%;
+            height: auto;
+        }
+
+        #subject h2 {
+            color: #000000;
+            font-size: 32px;
+        }
+
+        #soundControl {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            /* background-color: transparent; */
+            background-color: #a39d9d3a;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            position: fixed;
+            top: 0;
+            /* bottom: 0; */
+        }
+
+        #soundControl img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        /*for mobile screen*/
+        @media only screen and (max-width: 600px) {
+
+            .quiz {
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .quiz h2 {
+                font-size: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 10px;
+                /* border-style: hidden; */
+            }
+
+            .btn-container {
+                font-size: 16px;
+            }
+
+            #question-image {
+                width: 100%;
+                height: auto;
+                border-style: hidden;
+            }
+
+            #quiz_image {
+                width: 100%;
+                height: 200px;
+            }
+
+            #subject {
+                width: 60%;
+                height: 30%;
+                padding: 10px 15px;
+            }
+
+            #subject h1 {
+                font-size: 40px;
+                text-align: center;
+                /* padding: 0px 10px; */
+            }
+
+            #subject h2 {
+                font-size: 20px;
+                display: none;
+            }
+
+        }
+
+        /* Tablets (portrait and landscape) */
+        @media only screen and (min-width: 601px) and (max-width: 900px) {
+            .quiz {
+                width: 80%;
+            }
+
+            .quiz h2 {
+                font-size: 22px;
+            }
+
+            .btn {
+                width: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz">
+        <div id="Quiztitle">
+            <h1>QUIZ</h1>
+            <button id="soundControl">
+                <img id="soundIcon" src="soundoff.png" alt="Sound Off" />
+            </button>
+            <audio id="backgroundMusic" src="game_music.mp3" loop autoplay></audio>
+
+        </div>
+        <div id="quiz_image">
+            <div id="subject">
+                <h1>Flag Whiz</h1>
+                <h2>The Great Global Quiz</h2>
+            </div>
+        </div>
+
+        <div id="timer">Time left: <span id="time">15</span> seconds</div>
+
+        <div class="wrapper">
+            <div id="totalques">no of questions---</div>
+            <div id="timer-toggle">
+                <h3>Timer</h3>
+                <label class="timer-on">
+                    <input type="checkbox" id="timer-on" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <img id="question-image" src="" alt="Question Image">
+        <h2 id="question"></h2>
+        <div id="answer-buttons" class="btn-container"></div>
+        <button id="next-btn" class="next-btn">Next</button>
+        <button id="start-btn" class="start-btn">Start Quiz</button>
+        <div id="result" class="result"></div>
+
+
+        <audio id="correct-sound" src="zapsplat_notification.mp3"></audio>
+        <audio id="incorrect-sound" src="zapsplat_incorrect.mp3"></audio>
+
+    </div>
+</body>
+
+<script>
+    const questions = [
+        {
+            question: "World's largest population currently?",
+            image: "india.jpg",
+            answers: [
+                { text: "Ireland", correct: false },
+                { text: "India", correct: true },
+                { text: "Lebanon", correct: false },
+                { text: "Brazil", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "pakistan.webp",
+            answers: [
+                { text: "Bangladesh", correct: false },
+                { text: "Kazakhstan", correct: false },
+                { text: "Pakistan", correct: true },
+                { text: "Afghanistan", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "us.webp",
+            answers: [
+                { text: "United States", correct: true },
+                { text: "United Kingdom", correct: false },
+                { text: "Tuvalu", correct: false },
+                { text: "Australia", correct: false },
+            ]
+        },
+        {
+            question: " ",
+            image: "uk.webp",
+            answers: [
+                { text: "Australia", correct: false },
+                { text: "United States", correct: false },
+                { text: "United Arab Emirates", correct: false },
+                { text: "United Kingdom", correct: true },
+            ]
+        },
+        {
+            question: " ",
+            image: "nepal.webp",
+            answers: [
+                { text: "Turkey", correct: false },
+                { text: "Venezuela", correct: false },
+                { text: "Nepal", correct: true },
+                { text: " Sweden", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "russia.webp",
+            answers: [
+                { text: "Russia", correct: true },
+                { text: "Romania", correct: false },
+                { text: "Poland", correct: false },
+                { text: "Netherlands", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "brazil.png",
+            answers: [
+                { text: "Azerbaijan", correct: false },
+                { text: "Chile", correct: false },
+                { text: "Albania", correct: false },
+                { text: "Brazil", correct: true },
+            ]
+        },
+        {
+            question: "",
+            image: "ireland.webp",
+            answers: [
+                { text: "Côte d'Ivoire", correct: false },
+                { text: "Italy", correct: false },
+                { text: "Ireland ", correct: true },
+                { text: "India", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "japan.webp",
+            answers: [
+                { text: "North Korea", correct: false },
+                { text: "Macau", correct: false },
+                { text: "South Korea", correct: false },
+                { text: "Japan", correct: true },
+            ]
+        },
+        {
+            question: " ",
+            image: "china.jpg",
+            answers: [
+                { text: "Cyprus", correct: false },
+                { text: "China", correct: true },
+                { text: "Ghana", correct: false },
+                { text: "Japan", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "Canada.png",
+            answers: [
+                { text: "England", correct: false },
+                { text: "China", correct: false },
+                { text: "Denmark", correct: false },
+                { text: "Canada", correct: true },
+            ]
+        },
+        {
+            question: "",
+            image: "southAFRICA.webp",
+            answers: [
+                { text: "Switzerland", correct: false },
+                { text: "Syria", correct: false },
+                { text: "South Africa", correct: true },
+                { text: "Sri Lanka", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "eg.webp",
+            answers: [
+                { text: "Egypt", correct: true },
+                { text: "Belgium", correct: false },
+                { text: "	Algeria", correct: false },
+                { text: "Finland", correct: false },
+            ]
+        },
+        {
+            question: " ",
+            image: "afghanistan.webp",
+            answers: [
+                { text: "Kazakhstan", correct: false },
+                { text: "Afghanistan", correct: true },
+                { text: "Azerbaijan", correct: false },
+                { text: "Pakistan", correct: false },
+            ]
+        },
+        {
+            question: "",
+            image: "Puerto-Rico.webp",
+            answers: [
+                { text: "Palestine", correct: false },
+                { text: "Philippines", correct: false },
+                { text: " Puerto Rico", correct: true },
+                { text: "Mozambique", correct: false },
+            ]
+        }
+    ];
+
+    const questionElement = document.getElementById("question");
+    const questionImage = document.getElementById("question-image");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const startButton = document.getElementById("start-btn");
+    const timerElement = document.getElementById("time");
+    const timerContainer = document.getElementById("timer");
+    const timerToggle = document.getElementById("timer-on");
+    const timerToggleContainer = document.getElementById("timer-toggle");
+    const quizimage = document.getElementById("quiz_image");
+    const wrapperup = document.getElementsByClassName("wrapper")
+
+    //sound elements
+    const soundControlButton = document.getElementById('soundControl');
+    const soundIcon = document.getElementById('soundIcon');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    const correctSound = document.getElementById('correct-sound');
+    const incorrectSound = document.getElementById('incorrect-sound');
+
+
+
+    // Ensure background music starts playing on load but is initially paused
+    backgroundMusic.pause();
+
+    // Set initial state of sound icon
+    soundIcon.src = 'soundoff.png';
+
+    let isSoundOn = false; // Initially sound is off
+
+    // Sound Control functionality
+    soundControlButton.addEventListener('click', () => {
+        isSoundOn = !isSoundOn;
+        if (isSoundOn) {
+            soundIcon.src = 'soundplay.png'; // Set icon to 'sound on' image
+            backgroundMusic.play(); // Play background music
+        } else {
+            soundIcon.src = 'soundoff.png'; // Set icon to 'sound off' image
+            backgroundMusic.pause(); // Pause background music
+        }
+    });
+
+
+    // Fisher-Yates Shuffle (also known as the Knuth Shuffle) to increase the randomness
+    function getRandomQuestions(questionsArray, numQuestions) {
+        // Create a copy of the questionsArray to avoid mutating the original array
+        let shuffled = questionsArray.slice();
+
+        // Fisher-Yates Shuffle Algorithm
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            // Generate a random index between 0 and i (inclusive)
+            const j = Math.floor(Math.random() * (i + 1));
+            // Swap elements at index i and j
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        // Return the first 'numQuestions' questions from the shuffled array
+        return shuffled.slice(0, numQuestions);
+    }
+
+    //code for general random questions generation
+    //    function getRandomQuestions(questionsArray, numQuestions) {
+    // let shuffled = questionsArray.sort(() => Math.random() - 0.5);
+    // return shuffled.slice(0, numQuestions);
+    // }
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 15;
+    let timer;
+
+    timerContainer.style.display = "none";
+    totalques.innerHTML = "Questions:10"; //+ questions.length;
+
+    let randomQuestions = [];
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        // nextButton.innerHTML = "Next";
+        randomQuestions = getRandomQuestions(questions, 10); // change the number to get the required no of random Questions
+        startButton.style.display = "none";
+        timerToggleContainer.style.display = "none";
+        totalques.style.display = "none";
+        Quiztitle.style.display = "none";
+        quizimage.style.display = "none";
+        showQuestion();
+    }
+
+    function showQuestion() {
+        resetState();
+        let currentQuestion = randomQuestions[currentQuestionIndex]; // Use randomQuestions
+        let questionNO = currentQuestionIndex + 1;
+
+        if (currentQuestion.image) {
+            questionImage.src = currentQuestion.image;
+            questionImage.style.display = "block";
+            questionElement.style.display = "none"; // Hide question text if image is present
+        } else {
+            questionImage.style.display = "none";
+            questionElement.innerHTML = questionNO + ". " + currentQuestion.question;
+            questionElement.style.display = "block";
+        }
+
+
+        currentQuestion.answers.forEach(answer => {
+            const button = document.createElement("button");
+            button.innerHTML = answer.text;
+            button.classList.add("btn");
+            answerButtons.appendChild(button);
+            if (answer.correct) {
+                button.dataset.correct = answer.correct;
+            }
+            button.addEventListener("click", selectAnswer);
+        });
+
+        if (timerToggle.checked) {
+            startTimer();
+        }
+    }
+
+    function resetState() {
+        nextButton.style.display = "none";
+        while (answerButtons.firstChild) {
+            answerButtons.removeChild(answerButtons.firstChild);
+        }
+        clearInterval(timer);
+        timeLeft = 15;
+        timerElement.innerHTML = timeLeft;
+        timerContainer.style.display = timerToggle.checked ? "block" : "none";
+    }
+
+    function selectAnswer(e) {
+        const selectedBtn = e.target;
+        const isCorrect = selectedBtn.dataset.correct === "true";
+        if (isCorrect) {
+            correctSound.play();
+            selectedBtn.classList.add("correct");
+            score++; // Increment score for correct answers
+        } else {
+            incorrectSound.play();
+            selectedBtn.classList.add("incorrect");
+        }
+        Array.from(answerButtons.children).forEach(button => {
+            if (button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+            button.disabled = true;
+        });
+        clearInterval(timer);
+        setTimeout(handleNextButton, 1000); // Move to the next question after 1 second
+    }
+
+
+    function showScore() {
+        resetState();
+        let message = '';
+        let totalQuestions = randomQuestions.length; // Update to use randomQuestions.length
+        let scorePercentage = (score / totalQuestions) * 100;
+
+        if (score === totalQuestions) {
+            message = `Congratulations! You got a perfect score of ${score}/${totalQuestions}!`;
+        } else if (score >= 8) {
+            message = `You are almost there! Your score is ${score}/${totalQuestions}.`;
+        } else {
+            message = `Please don't give up try again. Your score is ${score}/${totalQuestions}.`;
+        }
+
+        questionElement.innerHTML = message;
+        questionElement.style.display = "block";
+        questionImage.style.display = "none";
+        nextButton.innerHTML = "Play Again";
+        nextButton.style.display = "block";
+        timerContainer.style.display = "none"; // Hide the timer at the end of the quiz
+        timerToggleContainer.style.display = "none"; // Show the timer toggle again
+
+        nextButton.onclick = resetQuiz;
+    }
+
+    function handleNextButton() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < randomQuestions.length) {
+            showQuestion();
+        } else {
+            showScore();
+        }
+    }
+
+    function startTimer() {
+        timer = setInterval(() => {
+            timeLeft--;
+            timerElement.innerHTML = timeLeft;
+            if (timeLeft === 0) {
+                clearInterval(timer);
+                handleNextButton();
+            }
+        }, 1000);
+    }
+
+    function resetQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        questionElement.innerHTML = "";
+        questionImage.style.display = "none";
+        questionImage.src = ""; // Clear the image source
+        startButton.style.display = "block";
+        timerToggleContainer.style.display = "flex";
+        timerContainer.style.display = "none";
+        nextButton.style.display = "none";
+        Quiztitle.style.display = "block";
+        totalques.style.display = "flex";
+        // wrapperup[0].style.display = "flex";
+        // totalques.style.visibility = "visible";
+        // timerToggleContainer.style.visibility = "visible";
+        // wrapperup.style.display="block";
+        quizimage.style.display = "flex";
+        // Reset styles for the "Start Quiz" button and timer toggle
+        startButton.innerHTML = "Start Quiz";
+        timerToggle.checked = true;
+        timerElement.innerHTML = "15"; // Reset the timer display
+    }
+
+
+
+    startButton.addEventListener("click", startQuiz);
+
+    // Show start button and timer toggle at the beginning
+    startButton.style.display = "block";
+    // timerToggleContainer.style.display = "block";
+
+</script>
+
+</html>

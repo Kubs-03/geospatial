@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Quiz</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href='https://fonts.googleapis.com/css?family=Nabla' rel='stylesheet'>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <link rel="stylesheet" href="states.css" />
+  <style>
+    body{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    /* Add your custom styles here */
+    #map {
+      height: 450px; /* Set a height for your map */
+      margin-bottom: 20px;
+    }
+    .container {
+      text-align: center;
+    }
+    #start-btn{
+        margin: 0 auto;
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size:20px;
+        border-radius: 5px;
+    }
+    #start-btn:hover{
+        background-color: #292828;
+        cursor: pointer;
+    }
+    .play-again-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.play-again-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+    #result {
+      display: none; /* Hide the result initially */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <h1>STATES OF INDIA</h1>
+  </div>
+  <div class="container">
+    <div id="map">map</div>
+
+    <div class="ques" id="quiz-container" style="display: none;">
+      <h2 id="question"></h2>
+    </div>
+
+    <button id="start-btn">Start Quiz</button>
+    <div id="result"></div>
+
+    <div id="score"></div>
+
+    <audio id="correct-sound" src="zapsplat_notification.mp3"></audio>
+    <audio id="incorrect-sound" src="zapsplat_incorrect.mp3"></audio>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script src="states.geojson"></script>
+  <script src="states.js"></script>
+</body>
+
+</html>

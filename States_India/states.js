@@ -27,20 +27,20 @@ const questions = [
         question: "Where is Andhra Pradesh?",
         correctState: "Andhra Pradesh"
     },
-    // {
-    //     question: "Where is Maharashtra?",
-    //     correctState: "Maharashtra"
-    // },
-    // {
-    //     question: "Where is Tamil Nadu?",
-    //     correctState: "Tamil Nadu"
-    // }, {
-    //     question: "Where is Goa?",
-    //     correctState: "Goa"
-    // }, {
-    //     question: "Where is West Bengal ?",
-    //     correctState: "West Bengal"
-    // }, 
+    {
+        question: "Where is Maharashtra?",
+        correctState: "Maharashtra"
+    },
+    {
+        question: "Where is Tamil Nadu?",
+        correctState: "Tamil Nadu"
+    }, {
+        question: "Where is Goa?",
+        correctState: "Goa"
+    }, {
+        question: "Where is West Bengal ?",
+        correctState: "West Bengal"
+    }, 
     {
         question: "Where is Mizoram?",
         correctState: "Mizoram"

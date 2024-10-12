@@ -1,12 +1,12 @@
 // Initialize map
-var map = L.map('map').setView([20.593684, 78.96288], 4.3);
+var map = L.map('map').setView([24.593684, 81.96288], 4.5);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // maxZoom: 19,
+    // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
 
-L.Control.geocoder().addTo(map);
+// L.Control.geocoder().addTo(map);
 
 let geojson;
 let stateLayers = {};  // Store reference to state layers
@@ -27,20 +27,21 @@ const questions = [
         question: "Where is Andhra Pradesh?",
         correctState: "Andhra Pradesh"
     },
+    // {
+    //     question: "Where is Maharashtra?",
+    //     correctState: "Maharashtra"
+    // },
+    // {
+    //     question: "Where is Tamil Nadu?",
+    //     correctState: "Tamil Nadu"
+    // }, {
+    //     question: "Where is Goa?",
+    //     correctState: "Goa"
+    // }, {
+    //     question: "Where is West Bengal ?",
+    //     correctState: "West Bengal"
+    // }, 
     {
-        question: "Where is Maharashtra?",
-        correctState: "Maharashtra"
-    },
-    {
-        question: "Where is Tamil Nadu?",
-        correctState: "Tamil Nadu"
-    }, {
-        question: "Where is Goa?",
-        correctState: "Goa"
-    }, {
-        question: "Where is West Bengal ?",
-        correctState: "West Bengal"
-    }, {
         question: "Where is Mizoram?",
         correctState: "Mizoram"
     }
@@ -61,7 +62,7 @@ const backgroundStyle = (feature) => ({
     weight: 1,
     opacity: 1,
     color: 'white',
-    fillOpacity: 0.2
+    fillOpacity: 0.4
 });
 
 const highlightStyle = (feature) => ({
@@ -135,6 +136,19 @@ function displayQuestion() {
     }
 }
 
+// Function to show and hide the message with dynamic background color
+function showMessage(text, backgroundColor) {
+    const messageElement = document.getElementById("message");
+    messageElement.innerText = text;
+    messageElement.style.backgroundColor = backgroundColor; // Set background color
+    messageElement.style.display = "block"; // Show the message
+
+    // Hide the message after 1 second
+    setTimeout(() => {
+        messageElement.style.display = "none";
+    }, 1000); // 1 second (1000 ms)
+}
+
 // Check the user's answer
 function checkAnswer(selectedState) {
     const correctState = shuffledQuestions[questionIndex].correctState;
@@ -142,8 +156,10 @@ function checkAnswer(selectedState) {
     if (selectedState === correctState) {
         correctSound.play();
         score++;
+        showMessage("Correct!","green"); // Show "Correct" message
     } else {
         incorrectSound.play();
+        showMessage("Incorrect X","#CB2F21"); // Show "Incorrect" message
     }
 
     questionIndex++;

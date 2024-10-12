@@ -179,7 +179,7 @@ body{
     /* background-color: antiquewhite; */
     margin:150px 0 0 0 ;
     padding:10px;
-    /* font-size:23px; */
+    font-size:10vw;
     text-wrap:balance;
 }
 

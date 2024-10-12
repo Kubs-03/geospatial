@@ -79,8 +79,6 @@ body{
     width:80%;
     /* backdrop-filter:blur(10px); */
 }
-
-
 .wave {
     display: inline-block;
     animation: wave-animation 2s ease-in-out infinite;
@@ -145,7 +143,7 @@ body{
     }
 
     .nav a{
-    /* display: none; */
+    display: none;
 }
 
 .nav{
@@ -179,12 +177,15 @@ body{
 .title{
     width: auto;
     /* background-color: antiquewhite; */
-    margin:150px 0 0 0 ;
-    padding:10px;
-    font-size:20px;
+    margin:100px 0 0 0 ;
+    /* padding:10px; */
+    font-size:6vw;
     text-wrap:balance;
 }
 
+#head{
+    font-size:15vw;
+}
 
 .links{
     height:50%;
@@ -198,7 +199,7 @@ body{
     margin:5px;
 }
 .links a{
-    font-size: 5vw;
+    font-size: 6vw;
     /* margin: 50px; */
 }
 

@@ -6,6 +6,7 @@
 html,body{
     height: 100%;
     /* overflow: hidden; */
+    background-color:rgb(224, 247, 224);
 }
 .grid{
    display: grid;
@@ -47,6 +48,10 @@ html,body{
     font-family: 'Nabla';
 }
 
+.hamburger{
+    display: none;
+}
+
 .links a{
     font-size: 18px;
     /* font-family:'Annie Use Your Telescope'; */
@@ -61,7 +66,7 @@ html,body{
 
 .container{
     grid-column:1/13;
-    /* background-color:honeydew; */
+    /* background-color:rgb(224, 247, 224); */
     position: relative;
     display: flex;
     justify-content: center;
@@ -173,4 +178,71 @@ html,body{
 #blur:hover{
     opacity: 0;
     transition: 0.8s all;
+}
+
+/* for mobile screens*/
+@media only screen and (max-width:600px) {
+    .logo{
+        font-size: 23px;
+    }
+    .links{
+        display: none;
+    }
+    .container{
+        /* background-color: blue; */
+        margin: 5px;
+    }
+    .grid_again{
+        /* background-color: black; */
+        padding:10px;
+        /* margin-bottom: 20px; */
+    }
+
+    .hamburger{
+        display: block;
+        background-color: black;
+        color: rgb(243, 197, 32);
+        border: none;
+        font-size: 25px;
+        font-weight: bolder;
+        margin: 5px;
+        cursor:pointer;
+    }
+}
+
+/* for tablet screens */
+@media only screen and (max-width:1108px) {
+    .navbar{
+        height: 65px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .logo{
+        font-size: 25px;
+        /* padding: 10px; */
+    }
+    .links{
+        display: none;
+    }
+    .container{
+        /* background-color: blue; */
+        margin: 5px;
+    }
+    .grid_again{
+        /* background-color: black; */
+        padding:10px;
+        /* margin-bottom: 20px; */
+    }
+
+    .hamburger{
+        display: block;
+        background-color: black;
+        color: rgb(243, 197, 32);
+        border: none;
+        font-size: 25px;
+        font-weight: bolder;
+        margin: 5px;
+        cursor:pointer;
+    }
 }

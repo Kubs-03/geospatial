@@ -16,6 +16,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
+    /* cursor: url('hover.svg') 10 10,pointer; */
     /* backdrop-filter:blur(10px); */
 }
 
@@ -124,6 +125,7 @@ body{
     margin:10px;
     /* border: 1px rgb(236, 144, 14) dashed; */
     border-radius: 20px;
+    cursor: url('hover.svg');
 }
 
 .links a:hover{
@@ -179,7 +181,7 @@ body{
     /* background-color: antiquewhite; */
     margin:150px 0 0 0 ;
     padding:10px;
-    font-size:10vw;
+    font-size:15px;
     text-wrap:balance;
 }
 

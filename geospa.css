@@ -183,7 +183,7 @@ html,body{
 /* for mobile screens*/
 @media only screen and (max-width:600px) {
     .logo{
-        font-size: 20px;
+        font-size: 18px;
     }
     .links{
         display: none;

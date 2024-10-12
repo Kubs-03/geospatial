@@ -16,7 +16,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
-    /* cursor: url('hover.svg') 10 10,pointer; */
+    cursor: url('hover.svg') 10 10,pointer;
     /* backdrop-filter:blur(10px); */
 }
 

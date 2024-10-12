@@ -16,7 +16,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
-    cursor: url('.\States_India\poin.png')10 10,auto;
+    /* cursor: url('.\States_India\poin.png')10 10,auto; */
     /* backdrop-filter:blur(10px); */
 }
 
